@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="DFI-OmniStereo: Boosting Omnidirectional Stereo Matching with a Pre-trained Depth Foundation Model">
+  <meta name="keywords" content="DFI-OmniStereo, Stereo Matching, Omnidirectional Vision, Depth Estimation, Foundation Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DFI-OmniStereo</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+<!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script type="text/javascript" async
+  src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Boosting Omnidirectional Stereo Matching
+            with a Pre-trained Depth Foundation Model</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://people.epfl.ch/jannik.endres">Jannik Endres</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://olvrhhn.github.io/">Oliver Hahn</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://chcorbi.github.io/">Charles Corbière</a><sup>1</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="https://schaubsi.github.io//">Simone Schaub-Meyer</a><sup>2,3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.visinf.tu-darmstadt.de/visual_inference/people_vi/stefan_roth.en.jsp">Stefan Roth</a><sup>2,3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://people.epfl.ch/alexandre.alahi">Alexandre Alahi</a><sup>1</sup>,
+            </span>
+          </div>
+
+      
+          <!-- Logos -->
+          <div style="margin-top: 10px; display: flex; gap: 20px; align-items: center; justify-content: center;">
+            <a href="https://www.epfl.ch/en/">
+              <img src="static/images/EPFL_Logo_184X53.svg" width="150px" alt="EPFL Logo" />
+            </a>
+            <a href="https://www.tu-darmstadt.de/index.en.jsp">
+              <img src="static/images/tu_logo_web.svg" width="150px" alt="TU Darmstadt Logo" />
+            </a>
+            <a href="https://hessian.ai/">
+              <img src="static/images/hessian-ai-logo.svg" width="150px" alt="Hessian AI Logo" />
+            </a>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>École Polytechnique Fédérale de Lausanne (EPFL),</span>
+            <span class="author-block"><sup>2</sup>Technical University
+                of Darmstadt,</span>
+            <span class="author-block"><sup>3</sup>hessian.AI</span>
+          </div>
+
+
+          <div class="column has-text-centered" style="margin-top: 20px;">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="ToDo"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="ToDo"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/vita-epfl/DFI-OmniStereo"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body has-text-centered">
+        <video controls autoplay muted loop playsinline width="100%">
+          <source src="static/videos/in_video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="content has-text-justified">
+          <p><b>TL;DR: </b>Given a pair of equirectangular images captured by two vertically stacked
+          omnidirectional cameras, DFI-OmniStereo integrates a large-scale
+          pre-trained monocular relative depth foundation model
+          into an iterative stereo matching approach. This method
+          improves depth estimation accuracy, significantly outperforming
+          the previous state-of-the-art method on the Helvipad dataset.</p>
+    </div>
+      </div>
+    </div>
+</section>
+  
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Omnidirectional depth perception is essential for
+            mobile robotics applications that require scene understanding
+            across a full 360° field of view. Camera-based setups offer a
+            cost-effective option by using stereo depth estimation to generate
+            dense, high-resolution depth maps without relying on expensive
+            active sensing. However, existing omnidirectional stereo matching
+            approaches achieve only limited depth accuracy across
+            diverse environments, depth ranges, and lighting conditions, due
+            to the scarcity of real-world data.
+          </p>
+          <p>
+            We present DFI-OmniStereo,
+            a novel omnidirectional stereo matching method that leverages
+            a large-scale pre-trained foundation model for relative monocular
+            depth estimation within an iterative optimization-based
+            stereo matching architecture. We introduce a dedicated two-stage
+            training strategy to utilize the relative monocular depth
+            features for our omnidirectional stereo matching before
+            scale-invariant fine-tuning.
+          </p>
+          <p>
+            DFI-OmniStereo achieves state-of-the-art
+            results on the real-world Helvipad dataset, reducing disparity
+            MAE by approximately 16% compared to the previous best
+            omnidirectional stereo method.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Method</h2>
+  
+          <div class="content has-text-justified">
+            <figure style="margin: 0;">
+              <img src="static/images/architecture.png" alt="Architecture visualisation" style="width: 100%; height: auto; display: block;">
+            </figure>
+            <p>
+                A shared depth foundation model (<span class="ourpurple">purple</span>) is utilized to extract representations from
+                a top and bottom image. Subsequently, an omnidirectional stereo matching head (<span class="ourpink">pink</span>) predicts disparity, utilizing the image
+                features as follows: The intermediate representations and relative depth maps of both images are adapted to be processed
+                as multi-scale feature maps by the iterative matching head.
+                This head predicts a disparity map using vertical warping for
+                cost volume construction. 
+            </p>
+            <p>
+                The training consists of two stages. In training stage A (<span class="ouryellow">yellow</span>), we adapt the stereo matching
+                head to the omnidirectional data and the foundation model features (foundation model frozen) using a conventional stereo
+                matching loss \( \mathcal{L}_{A} \). In stage B (<span class="ourorange">orange</span>), we fine-tune the foundation model decoder and the stereo matching head, utilizing a
+                scale-invariant logarithmic loss \( \mathcal{L}_{B} \). Frozen and trainable modules are denoted with a snowflake and fire symbol, respectively.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+      <!-- Method. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Results</h2>
+          <!-- Quantitative Results. -->
+          <!-- <h3 class="title is-4">Quantitative Results</h3> -->
+          <div class="content has-text-justified">
+            <p>
+              The table below shows the comparative results on the <a href="https://arxiv.org/abs/2411.18335" target="_blank">Helvipad</a> test split.
+              Our method (<a href="ToDo" target="_blank">DFI-OmniStereo</a>) achieves the best results in 6 of 8 metrics.
+              Only the LRCE metrics are slightly worse compared to the previous state-of-the-art method (<a href="https://arxiv.org/abs/2411.18335" target="_blank">360-IGEV-Stereo</a>).
+            </p>
+            <table class="table is-striped is-bordered is-hoverable is-fullwidth">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Method</th>
+                    <th rowspan="2">Stereo Setting</th>
+                    <th colspan="4" class="has-text-centered">Disparity (°)</th>
+                    <th colspan="4" class="has-text-centered">Depth (m)</th>
+                  </tr>
+                  <tr>
+                    <th class="has-text-centered">MAE</th>
+                    <th class="has-text-centered">RMSE</th>
+                    <th class="has-text-centered">MARE</th>
+                    <th class="has-text-centered">LRCE</th>
+                    <th class="has-text-centered">MAE</th>
+                    <th class="has-text-centered">RMSE</th>
+                    <th class="has-text-centered">MARE</th>
+                    <th class="has-text-centered">LRCE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <a href="https://arxiv.org/abs/1803.08669" target="_blank">PSMNet</a>
+                    </td>
+                    <td>conventional</td>
+                    <td class="has-text-centered">0.286</td>
+                    <td class="has-text-centered">0.496</td>
+                    <td class="has-text-centered">0.248</td>
+                    <td class="has-text-centered">-</td>
+                    <td class="has-text-centered">2.509</td>
+                    <td class="has-text-centered">5.673</td>
+                    <td class="has-text-centered">0.176</td>
+                    <td class="has-text-centered">1.809</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="https://arxiv.org/abs/1911.04460" target="_blank">360SD-Net</a>
+                    </td>
+                    <td>omnidirectional</td>
+                    <td class="has-text-centered">0.224</td>
+                    <td class="has-text-centered">0.419</td>
+                    <td class="has-text-centered">0.191</td>
+                    <td class="has-text-centered">-</td>
+                    <td class="has-text-centered">2.122</td>
+                    <td class="has-text-centered">5.077</td>
+                    <td class="has-text-centered">0.152</td>
+                    <td class="has-text-centered">0.904</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="https://arxiv.org/abs/2303.06615" target="_blank">IGEV-Stereo</a>
+                    </td>
+                    <td>conventional</td>
+                    <td class="has-text-centered">0.225</td>
+                    <td class="has-text-centered">0.423</td>
+                    <td class="has-text-centered">0.172</td>
+                    <td class="has-text-centered">-</td>
+                    <td class="has-text-centered">1.860</td>
+                    <td class="has-text-centered">4.474</td>
+                    <td class="has-text-centered">0.146</td>
+                    <td class="has-text-centered">1.203</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="https://arxiv.org/abs/2411.18335" target="_blank">360-IGEV-Stereo</a>
+                    </td>
+                    <td>omnidirectional</td>
+                    <td class="has-text-centered">0.188</td>
+                    <td class="has-text-centered">0.404</td>
+                    <td class="has-text-centered">0.146</td>
+                    <td class="has-text-centered"><b>0.054</b></td>
+                    <td class="has-text-centered">1.720</td>
+                    <td class="has-text-centered">4.297</td>
+                    <td class="has-text-centered">0.130</td>
+                    <td class="has-text-centered"><b>0.388</b></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="ToDo" target="_blank">DFI-OmniStereo</a>
+                    </td>
+                    <td>omnidirectional</td>
+                    <td class="has-text-centered"><b>0.158</b></td>
+                    <td class="has-text-centered"><b>0.338</b></td>
+                    <td class="has-text-centered"><b>0.120</b></td>
+                    <td class="has-text-centered">0.058</td>
+                    <td class="has-text-centered"><b>1.463</b></td>
+                    <td class="has-text-centered"><b>3.767</b></td>
+                    <td class="has-text-centered"><b>0.108</b></td>
+                    <td class="has-text-centered">0.397</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <!-- / Quantitative Results. -->
+          <!-- Qualitative Results. -->
+          <!-- <h3 class="title is-4">Qualitative Results</h3> -->
+          <div class="content has-text-justified">
+            <p>
+                The videos below show the depth maps predicted by our method
+                (<a href="ToDo" target="_blank">DFI-OmniStereo</a>) and the previous state-of-the-art
+                method (<a href="https://arxiv.org/abs/2411.18335" target="_blank">360-IGEV-Stereo</a>)
+                on an outdoor, day time and outdoor, night time scene of the
+                <a href="https://arxiv.org/abs/2411.18335" target="_blank">Helvipad</a> dataset.
+                A video of an indoor scene is provided at the top of this page.
+                DFI-OmniStereo yields predictions with sharper edges, finer details, and smoother surfaces.
+              </p>
+
+              <center><h4 class="title is-5">Outdoor Day Scene</h4></center>
+              <video controls autoplay muted loop playsinline width="100%">
+                <source src="static/videos/out_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+
+              <center><h4 class="title is-5">Outdoor Day Scene</h4></center>
+              <video controls autoplay muted loop playsinline width="100%">
+                <source src="static/videos/nout_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+        </div>
+        <!--/ Qualitative Results. -->
+      </div>
+      <!--/ Method. -->
+    </div>
+  </section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{endres2025dfiomnistereo,
+  author    = {Endres, Jannik and Hahn, Oliver and Corbière, Charles and Schaub-Meyer, Simone and Roth, Stefan and Alahi, Alexandre},
+  title     = {Boosting Omnidirectional Stereo Matching with a Pre-trained Depth Foundation Model},
+  journal   = {arxiv:ToDo [cs.CV]},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page is based on the <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>  website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
