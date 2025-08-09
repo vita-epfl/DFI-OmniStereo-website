@@ -41,9 +41,10 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Boosting Omnidirectional Stereo Matching
             with a Pre-trained Depth Foundation Model</h1>
+          <h2 class="subtitle has-text-centered"><b>IROS 2025</b></h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://people.epfl.ch/jannik.endres">Jannik Endres</a><sup>1,2</sup>,</span>
+              <a href="www.linkedin.com/in/jannik-endres">Jannik Endres</a><sup>1,2</sup>,</span>
             <span class="author-block">
               <a href="https://olvrhhn.github.io/">Oliver Hahn</a><sup>2</sup>,</span>
             <span class="author-block">
@@ -95,6 +96,7 @@
                   <span>Paper</span>
                 </a>
               </span>
+              <!-- ArXiv Link. -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2503.23502"
                    class="external-link button is-normal is-rounded is-dark">
@@ -104,6 +106,15 @@
                   <span>arXiv</span>
                 </a>
               </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=CHDQBl_PPDo"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                  </a>
               <!-- Code Link. -->
               <span class="link-block">
                 <a href="https://github.com/vita-epfl/DFI-OmniStereo"
@@ -204,7 +215,7 @@
                 cost volume construction. 
             </p>
             <p>
-                The training consists of two stages. In training stage A (<span class="ouryellow">yellow</span>), we adapt the stereo matching
+                The training consists of two stages. In training stage A (<span class="ourblue">blue</span>), we adapt the stereo matching
                 head to the omnidirectional data and the foundation model features (foundation model frozen) using a conventional stereo
                 matching loss \( \mathcal{L}_{A} \). In stage B (<span class="ourorange">orange</span>), we fine-tune the foundation model decoder and the stereo matching head, utilizing a
                 scale-invariant logarithmic loss \( \mathcal{L}_{B} \). Frozen and trainable modules are denoted with a snowflake and fire symbol, respectively.
@@ -362,11 +373,12 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{endres2025dfiomnistereo,
-  author    = {Endres, Jannik and Hahn, Oliver and Corbière, Charles and Schaub-Meyer, Simone and Roth, Stefan and Alahi, Alexandre},
-  title     = {Boosting Omnidirectional Stereo Matching with a Pre-trained Depth Foundation Model},
-  journal   = {arxiv:2503.23502 [cs.CV]},
-  year      = {2025},
+    <pre><code>@inproceedings{endres2025dfiomnistereo,
+  author        = {Endres, Jannik and Hahn, Oliver and Corbière, Charles and Schaub-Meyer, Simone and Roth, Stefan and Alahi, Alexandre},
+  title         = {Boosting Omnidirectional Stereo Matching with a Pre-trained Depth Foundation Model},
+  booktitle     = {2025 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year          = {2025},
+  organization  = {IEEE}
 }</code></pre>
   </div>
 </section>
